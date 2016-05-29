@@ -1,0 +1,6 @@
+[package]
+name = "rmac"
+version = "0.1.0"
+authors = ["Wei Liu <liuw@liuw.name>"]
+
+[dependencies]
