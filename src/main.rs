@@ -22,6 +22,7 @@ fn main() {
 
     opts.optflag("h", "help", "print this help menu");
     opts.optflag("", "tla", "associate with a well-known three letter agency");
+    opts.optflag("u", "upper", "use upper case characters");
 
     let matches = match opts.parse(&args[1..]) {
         Ok(m) => { m }
@@ -53,6 +54,11 @@ fn main() {
         mac[2] = 0x91;
     }
 
-    print!("{:02x}:{:02x}:{:02x}:{:02x}:{:02x}:{:02x}",
-           mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
+    if matches.opt_present("u") {
+        print!("{:02X}:{:02X}:{:02X}:{:02X}:{:02X}:{:02X}",
+                mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
+    } else {
+        print!("{:02x}:{:02x}:{:02x}:{:02x}:{:02x}:{:02x}",
+               mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
+    }
 }
