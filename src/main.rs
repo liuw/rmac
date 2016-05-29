@@ -2,6 +2,9 @@ extern crate getopts;
 
 use getopts::Options;
 use std::env;
+use std::fs::File;
+
+static URANDOM: &'static str = "/dev/urandom";
 
 fn print_usage(program: &str, opts: Options) {
     let brief = format!("Usage: {}", program);
@@ -13,6 +16,7 @@ fn main() {
     let mut opts = Options::new();
     let program = args[0].clone();
     let mut tla = false;
+    let urandom;
 
     opts.optflag("h", "help", "print this help menu");
     opts.optflag("", "tla", "associate with a well-known three letter agency");
@@ -30,4 +34,9 @@ fn main() {
     if matches.opt_present("tla") {
         tla = true;
     }
+
+    urandom = match File::open(URANDOM) {
+        Ok(val) => val,
+        Err(err) => panic!("{}", err),
+    };
 }
