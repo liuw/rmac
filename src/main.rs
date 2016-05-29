@@ -12,8 +12,10 @@ fn main() {
     let args: Vec<String> = env::args().collect();
     let mut opts = Options::new();
     let program = args[0].clone();
+    let mut tla = false;
 
     opts.optflag("h", "help", "print this help menu");
+    opts.optflag("", "tla", "associate with a well-known three letter agency");
 
     let matches = match opts.parse(&args[1..]) {
         Ok(m) => { m }
@@ -25,5 +27,7 @@ fn main() {
         return;
     }
 
-    println!("Hello, world!");
+    if matches.opt_present("tla") {
+        tla = true;
+    }
 }
