@@ -17,6 +17,7 @@ fn main() {
     let mut opts = Options::new();
     let program = args[0].clone();
     let mut tla = false;
+    let mut upper = false;
     let mut urandom;
     let mut mac: [u8; 6] = [0; 6];
 
@@ -32,6 +33,10 @@ fn main() {
     if matches.opt_present("h") {
         print_usage(&program, opts);
         return;
+    }
+
+    if matches.opt_present("u") {
+        upper = true;
     }
 
     if matches.opt_present("tla") {
@@ -54,7 +59,7 @@ fn main() {
         mac[2] = 0x91;
     }
 
-    if matches.opt_present("u") {
+    if upper {
         print!("{:02X}:{:02X}:{:02X}:{:02X}:{:02X}:{:02X}",
                 mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
     } else {
